@@ -27,7 +27,7 @@ def prepare_model():
                 cmd_opts.precision = 'fp32'
             elif total_vram_in_gb > 13:
                 cmd_opts.precision = 'fp16'
-            elif total_vram_in_gb > 10:
+            elif total_vram_in_gb > 8:
                 cmd_opts.precision = 'int8'
             else:
                 cmd_opts.precision = 'int4'
@@ -56,8 +56,8 @@ def load_model():
 
     global tokenizer, model
 
-    tokenizer = AutoTokenizer.from_pretrained(cmd_opts.model_path, trust_remote_code=True)
-    model = AutoModel.from_pretrained(cmd_opts.model_path, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(cmd_opts.model_path, trust_remote_code=True, cache_dir=cmd_opts.cache_dir)
+    model = AutoModel.from_pretrained(cmd_opts.model_path, trust_remote_code=True, cache_dir=cmd_opts.cache_dir)
     prepare_model()
 
 
